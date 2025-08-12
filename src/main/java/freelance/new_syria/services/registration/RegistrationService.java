@@ -16,7 +16,6 @@ import freelance.new_syria.services.user.UserService;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class RegistrationService {
 
 	private final UserService service;
@@ -28,6 +27,7 @@ public class RegistrationService {
 	@Value("${server}")
 	private String serverName;
 	
+	
 	public String register(Registration request) {
 		System.out.println(request.getEmail());
 		boolean isValidateEmail = this.validator.test(request.getEmail());	
@@ -37,7 +37,7 @@ public class RegistrationService {
 		String token= this.service.signUp(new User(request.getUserName(), request.getPassword(), request.getEmail(), Role.USER));
 			
 		
-		String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+		String link = serverName+"/api/v1/registration/confirm?token=" + token;
 		emailSender.send(request.getEmail(),buildEmail(request.getUserName(),link) );
 		
 		return token;
@@ -127,6 +127,16 @@ public class RegistrationService {
 	        </body>
 	        </html>
 	    """.formatted(name, link, java.time.Year.now().getValue());
+	}
+
+	public RegistrationService(UserService service, EmailValidator validator, TokenConfirmationService tokenService,
+			UserService userService, EmailSender emailSender) {
+		super();
+		this.service = service;
+		this.validator = validator;
+		this.tokenService = tokenService;
+		this.userService = userService;
+		this.emailSender = emailSender;
 	}
 
 }
