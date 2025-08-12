@@ -2,6 +2,7 @@ package freelance.new_syria.services.registration;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import freelance.new_syria.email.EmailSender;
@@ -23,6 +24,9 @@ public class RegistrationService {
 	private final TokenConfirmationService tokenService;
 	private final UserService userService;
 	private final EmailSender emailSender;
+	
+	@Value("${server}")
+	private String serverName;
 	
 	public String register(Registration request) {
 		System.out.println(request.getEmail());
