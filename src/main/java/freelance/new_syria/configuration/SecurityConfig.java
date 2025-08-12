@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import freelance.new_syria.entities.security.user.CustomeUserDetils;
 import freelance.new_syria.services.user.UserService;
 
 
@@ -26,7 +25,7 @@ public class SecurityConfig {
 	    }
 
 	    @Bean
-	    public DaoAuthenticationProvider authenticationProvider( UserService userService, PasswordEncoder encoder) {
+	    public DaoAuthenticationProvider authenticationProvider(UserService userService, PasswordEncoder encoder) {
 	        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 	        authProvider.setUserDetailsService(userService);
 	        authProvider.setPasswordEncoder(encoder);
